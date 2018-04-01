@@ -5,7 +5,8 @@ Abstract library API for database engines
 
 # VERSION
 
-This document is Muldis Database Protocol version 0.201.0.
+The fully-qualified name of this document is
+`Muldis_Database_Protocol http://muldis.com 0.201.0`.
 
 # SYNOPSIS
 
@@ -18,7 +19,42 @@ This document is the human readable authoritative formal specification named
 The fully-qualified name of this document and specification is
 `Muldis_Database_Protocol http://muldis.com 0.201.0`.
 This is the official/original version by the authority Muldis Data Systems
-(`http://muldis.com`), version number `0.201.0` (matches the VERSION).
+(`http://muldis.com`), version number `0.201.0`.
+
+**Muldis Database Protocol** specifies an abstract library API for database
+engines.  It is completely language independent but uses conventions that
+are familiar to programmers of many other languages.  It often takes the
+form of API documentation for a pseudocode virtual library named `FooDB`.
+
+An actual concrete library in some programming language that implements and
+is fully conformant to the MDBP specification is one that provides an API
+that is a (possibly non-proper) superset of the API of the virtual library
+defined here.  And so, any applications or other libraries depending on the
+MDBP should be fully portable between all such conforming libraries of
+their own programming language or platform, at least with respect to what
+the API spec defines; furthermore, dependents should be able to
+programmatically discover to what degree the entire feature set and API of
+the implementing library is able to satisfy its needs and gracefully handle
+when they aren't met.
+
+**Muldis Database Protocol** is expressly designed so that multiple
+implementing DBMS engines etc can be drop-in compatible for each other
+while at the same time having no library dependencies in common.  This is
+in stark contrast to typical cross-DBMS access solutions which require a
+common shared implementing codebase, extensible with a plug-in
+architecture, regardless of what backend is in use.  Shared-nothing is a
+primary MDBP feature, at least in principle; implementations can choose to
+have shared code, but MDBP makes no requirements that they do so.
+
+**Muldis Database Protocol** is bundled with a set of reference API
+specifications such that each of the latter is specific to an externally
+defined programming language and demonstrates how to apply the abstract
+MDBP to the particular paradigms/features/idioms of that language. Where
+the language supports the concept, which is common, the reference API is an
+actual concrete interface-defining source code file which can be included
+in or be a concrete dependency for a MDBP implementation in that language.
+
+See the language-specific subdirectories of [hosts](hosts) for those.
 
 *TODO.*
 
@@ -128,6 +164,10 @@ maturity, for example production vs pre-production/beta/etc, so explicit
 markers of such can either be omitted or be based on other standards.
 However, a major version of zero should be considered either pre-production
 or that the authority expects frequent upcoming backwards-incompatible changes.*
+
+See also [http://design.perl6.org/S11.html#Versioning](
+http://design.perl6.org/S11.html#Versioning) which was the primary
+influence for the versioning scheme described above.
 
 # SEE ALSO
 

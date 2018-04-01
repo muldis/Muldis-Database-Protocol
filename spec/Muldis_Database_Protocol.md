@@ -54,7 +54,7 @@ the language supports the concept, which is common, the reference API is an
 actual concrete interface-defining source code file which can be included
 in or be a concrete dependency for a MDBP implementation in that language.
 
-See the language-specific subdirectories of [hosts](hosts) for those.
+See the language-specific subdirectories of [hosts](../hosts) for those.
 
 *TODO.*
 

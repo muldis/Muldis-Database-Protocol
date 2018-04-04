@@ -24,7 +24,7 @@ This is the official/original version by the authority Muldis Data Systems
 **Muldis Database Protocol** specifies an abstract library API for database
 engines.  It is completely language independent but uses conventions that
 are familiar to programmers of many other languages.  It often takes the
-form of API documentation for a pseudocode virtual library named `FooDB`.
+form of API documentation for a pseudocode virtual library named **FooDB**.
 
 An actual concrete library in some programming language that implements and
 is fully conformant to the MDBP specification is one that provides an API
@@ -55,6 +55,81 @@ actual concrete interface-defining source code file which can be included
 in or be a concrete dependency for a MDBP implementation in that language.
 
 See the language-specific subdirectories of [hosts](../hosts) for those.
+
+# DEPENDENCIES
+
+**Muldis Database Protocol** has formal dependencies on, and is defined
+partly in terms of, the externally defined formal specifications named
+**Muldis Content Predicate** (**MCP**) and
+**Muldis Object Notation** (**MUON**).
+
+See [https://github.com/muldis/Muldis_Content_Predicate](
+https://github.com/muldis/Muldis_Content_Predicate)
+and [https://github.com/muldis/Muldis_Object_Notation](
+https://github.com/muldis/Muldis_Object_Notation) for those.
+
+The MDBP specification liberally re-uses concepts and definitions from
+those externals, so they should be read and understood as necessary in order
+to best understand the current document.
+
+# INTERFACE
+
+This document uses some object-oriented terminology such as I<class> and
+I<object> to describe the abstract API, but an object-oriented language is
+not required to implement it.  Conversely, this document describes routines
+such that all arguments are explicit, and none are described as object
+instance methods, but an OO language is free to use such if it wants to.
+
+The interface of **FooDB** primarily uses the *abstract factory* and
+*factory method* design patterns; users are expected in general to not need
+to know the actual implementing classes of the objects they create or are
+given, just that the objects provide expected interfaces and behavior.
+
+Otherwise, **FooDB** most frequently uses the *command* or *interpreter*
+design patterns; the API has a fairly small number of actual routines, such
+that users invoke them with structures (either native or serialized) that
+describe a desired action to take, and receive back structures describing
+the results.
+
+**Muldis Database Protocol** is generally agnostic to command languages and
+data models and is designed to be usable with many different ones.
+
+This document uses *snake case*, for example `Foo_Bar`, as its generic
+naming convention for the API components; however, each implementation does
+not need to follow this, and indeed the bundled language-specific reference
+API specifications will instead follow the standard naming conventions of
+those languages.
+
+This document gives the `MDBP_` prefix for type/class names that are
+defined by the API, and gives the `SYS_` prefix for type/class names that
+are defined by the host/implementing programming language, so that they are
+not confused; actual implementations should use non-conflicting names also.
+
+## MDBP_Factory
+
+A concrete library in some programming language that implements MDBP will
+have exactly one static factory class, whose name the user needs to know,
+which is the initial factory class to bootstrap the API.  That factory
+class is represented in this document by the fake class name `MDBP_Factory`.
+An application using a MDBP-implementing library might either hard-code
+this class name if it is only using a specific one, or it might load that
+name from a configuration file if it lets users specify the library to use.
+
+## MDBP_Factory::Provides_Muldis_Database_Protocol
+
+```
+    procedure MDBP_Factory::Provides_Muldis_Database_Protocol()
+```
+
+The static procedure `MDBP_Factory::Provides_Muldis_Database_Protocol`
+exists entirely to serve as a "magic number" that identifies the library as
+one that implements the **Muldis Database Protocol**.  An application which
+takes instruction from the user or a config file on which MDBP-implementing
+library to use can do appropriate sanity checks elegantly with the host
+language's reflection capabilities, checking for the existence of the
+requested factory class and that said class provides this niladic
+procedure, and only proceeding further to try and use the factory if it
+does.  Actually invoking this procedure should be a no-op.
 
 *TODO.*
 

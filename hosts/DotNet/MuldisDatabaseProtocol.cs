@@ -16,23 +16,9 @@ namespace Muldis.DatabaseProtocol
 
     public interface IMachine
     {
-        IExecutor Executor();
-
-        IImporter Importer();
-    }
-
-    public interface IExecutor
-    {
-        IMachine Machine();
-
         MdbpAny Evaluates(MdbpAny function, MdbpAny args = null);
 
         void Performs(MdbpAny procedure, MdbpAny args = null);
-    }
-
-    public interface IImporter
-    {
-        IMachine Machine();
 
         MdbpAny MdbpAny(Object value);
 

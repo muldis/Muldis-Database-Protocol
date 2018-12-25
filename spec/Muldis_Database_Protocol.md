@@ -46,10 +46,15 @@ architecture, regardless of what backend is in use.  Shared-nothing is a
 primary MDBP feature, at least in principle; implementations can choose to
 have shared code, but MDBP makes no requirements that they do so.
 
+This document also uses the terms *MDBP server* and *MDBP client* to refer
+to, respectively, a concrete library that supports being invoked with the
+MDBP API, and a concrete application (or library) that supports invoking
+something else with the MDBP API.
+
 **Muldis Database Protocol** is bundled with a set of reference API
 specifications such that each of the latter is specific to an externally
 defined programming language and demonstrates how to apply the abstract
-MDBP to the particular paradigms/features/idioms of that language. Where
+MDBP to the particular paradigms/features/idioms of that language.  Where
 the language supports the concept, which is common, the reference API is an
 actual concrete interface-defining source code file which can be included
 in or be a concrete dependency for a MDBP implementation in that language.
@@ -74,8 +79,8 @@ to best understand the current document.
 
 # INTERFACE
 
-This document uses some object-oriented terminology such as I<class> and
-I<object> to describe the abstract API, but an object-oriented language is
+This document uses some object-oriented terminology such as *class* and
+*object* to describe the abstract API, but an object-oriented language is
 not required to implement it.  Conversely, this document describes routines
 such that all arguments are explicit, and none are described as object
 instance methods, but an OO language is free to use such if it wants to.
@@ -83,13 +88,20 @@ instance methods, but an OO language is free to use such if it wants to.
 The interface of **FooDB** primarily uses the *abstract factory* and
 *factory method* design patterns; users are expected in general to not need
 to know the actual implementing classes of the objects they create or are
-given, just that the objects provide expected interfaces and behavior.
+given, just that the objects provide expected interfaces and behaviour.
 
 Otherwise, **FooDB** most frequently uses the *command* or *interpreter*
 design patterns; the API has a fairly small number of actual routines, such
 that users invoke them with structures (either native or serialized) that
 describe a desired action to take, and receive back structures describing
 the results.
+
+A *MDBP client* would typically use the *bridge* design pattern for the
+portion of its code that actually speaks the MDBP, especially when the
+implementing language features compile-time type checking and binding, so
+that the majority of the client code can be written in terms of specific
+and known type or class names or equivalents, and it can avoid the added
+complexities of dealing with runtime reflection itself.
 
 **Muldis Database Protocol** is generally agnostic to command languages and
 data models and is designed to be usable with many different ones.
@@ -105,31 +117,152 @@ defined by the API, and gives the `SYS_` prefix for type/class names that
 are defined by the host/implementing programming language, so that they are
 not confused; actual implementations should use non-conflicting names also.
 
-## MDBP_Factory
+## MDBP_Entrance
 
 A concrete library in some programming language that implements MDBP will
-have exactly one static factory class, whose name the user needs to know,
-which is the initial factory class to bootstrap the API.  That factory
-class is represented in this document by the fake class name `MDBP_Factory`.
-An application using a MDBP-implementing library might either hard-code
-this class name if it is only using a specific one, or it might load that
-name from a configuration file if it lets users specify the library to use.
+have exactly one entrance class, whose name the user needs to know, which
+is the initial entrance class to bootstrap the API.  That entrance class is
+represented in this document by the fake class name `MDBP_Entrance`.  An
+application using a MDBP-implementing library might either hard-code this
+class name if it is only using a specific one, or it might load that name
+from a configuration file if it lets users specify the library to use.
 
-## MDBP_Factory::Provides_Muldis_Database_Protocol
+## MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance()
 
 ```
-    procedure MDBP_Factory::Provides_Muldis_Database_Protocol()
+    procedure MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance()
 ```
 
-The static procedure `MDBP_Factory::Provides_Muldis_Database_Protocol`
+The procedure `MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance`
 exists entirely to serve as a "magic number" that identifies the library as
-one that implements the **Muldis Database Protocol**.  An application which
+one that implements the **Muldis Database Protocol**, or specifically that
+some given class provides the `MDBP_Entrance` API.  An application which
 takes instruction from the user or a config file on which MDBP-implementing
 library to use can do appropriate sanity checks elegantly with the host
 language's reflection capabilities, checking for the existence of the
-requested factory class and that said class provides this niladic
-procedure, and only proceeding further to try and use the factory if it
+requested entrance class and that said class provides this niladic
+procedure, and only proceeding further to try and use the entrance if it
 does.  Actually invoking this procedure should be a no-op.
+
+## MDBP_Entrance::New_MDBP_Factory(SYS_Object requested_MDBP_version)
+
+```
+    function MDBP_Factory MDBP_Entrance::New_MDBP_Factory(
+        SYS_Object requested_MDBP_version)
+```
+
+The function `MDBP_Entrance::New_MDBP_Factory` will attempt to result in a
+new `MDBP_Factory` object that implements the specific version/set of the
+MDBP API named by its `requested_MDBP_version` argument; this function will
+instead result in failure if it can't provide such an object.
+
+## MDBP_Factory
+
+A concrete library in some programming language that implements MDBP will
+have at least one class, whose name the user should not need to know, each
+of whose objects provides a specific version/set of the MDBP API.  Each
+such class is represented in this document by the fake class name
+`MDBP_Factory`.  The primary reason that the `MDBP_Factory` exists,
+rather than `MDBP_Entrance` handling its functionality, is so that the
+latter can be absolutely as small as possible, so there can be the greatest
+potential variance between versions of the MDBP API.  A *MDBP client* would
+typically utilize a separate *bridge* class (either its own or that of
+another library) and avoid hard-coding any `MDBP_Factory` class name.
+
+## MDBP_Factory::Provides_Muldis_Database_Protocol_Factory()
+
+```
+    procedure MDBP_Factory::Provides_Muldis_Database_Protocol_Factory()
+```
+
+The procedure `MDBP_Factory::Provides_Muldis_Database_Protocol_Factory`
+exists to identify that some given class provides the `MDBP_Factory` API.
+Any code that wants to know if some given object is usable as a
+`MDBP_Factory` object can start by using the host language's reflection
+capabilities to test that the object's class declares this procedure.
+Actually invoking this procedure should be a no-op.
+
+## MDBP_Factory::New_MDBP_Machine(MDBP_Factory factory, SYS_Object requested_model_version)
+
+```
+    function MDBP_Machine MDBP_Factory::New_MDBP_Machine(
+        MDBP_Factory factory
+        SYS_Object requested_model_version)
+```
+
+The function `MDBP_Factory::New_MDBP_Machine` will attempt to result in a
+new `MDBP_Machine` object that implements the specific version/set of the
+MDBP API represented by its `factory` argument, such that the DBMS /
+virtual machine represented by the `MDBP_Machine` fundamentally behaves
+according to the data model version/set named by its
+`requested_model_version` argument; this function will instead result in
+failure if it can't provide such an object.
+
+## MDBP_Machine
+
+A concrete library in some programming language that implements MDBP will
+have at least one class, whose name the user should not need to know, each
+of whose objects represents a single active instance of a database
+management system (DBMS) or virtual machine environment, which is the
+widest scope stateful context in which any other database activities
+happen.  Each such class is represented in this document by the fake class
+name `MDBP_Machine`.  A *MDBP client* would typically utilize a separate
+*bridge* class (either its own or that of another library) and avoid
+hard-coding any `MDBP_Machine` class name.
+
+The *any other database activities* refers to the creation or destruction
+or association or disassociation with one or more databases, the authoring
+or compilation or execution of routines, either to fetch data or manipulate
+data, the creation or destruction of database constraints, the management
+of transactions, and so on.  A `MDBP_Machine` object also represents the
+global memory pool of an active DBMS instance, within which all processes
+and values and variables live.
+
+A typical application would use exactly one `MDBP_Machine` object at a time
+and it would tend to be as long-lived as the application process itself.
+Some libraries implementing MDBP may treat a `MDBP_Machine` as a singleton,
+so only one such object may exist at a time through which it manages
+resources; other implementers may allow several at once, in which case they
+should be completely independent.
+
+## MDBP_Machine::Provides_Muldis_Database_Protocol_Machine()
+
+```
+    procedure MDBP_Machine::Provides_Muldis_Database_Protocol_Machine()
+```
+
+The procedure `MDBP_Machine::Provides_Muldis_Database_Protocol_Machine`
+exists to identify that some given class provides the `MDBP_Machine` API.
+Any code that wants to know if some given object is usable as a
+`MDBP_Machine` object can start by using the host language's reflection
+capabilities to test that the object's class declares this procedure.
+Actually invoking this procedure should be a no-op.
+
+## MDBP_Value
+
+A `MDBP_Value` object represents a single in-DBMS value of the `Any` type,
+meaning both regular constant values as well as mutable `Handle` values.
+A `MDBP_Value` object is associated with a specific `Machine` object, the one
+whose `new_value` method created it.  `MDBP_Value` objects are the normal way
+to directly share or move data between the DBMS and main .NET environments.
+The way to represent an in-DBMS variable with a `MDBP_Value` object is to use
+a *value* whose *data type* is `Variable`.  The way to represent an
+in-DBMS process with a `Value` object is to use a *value* whose *data
+type* is `Process`.
+
+## MDBP_Value::Provides_Muldis_Database_Protocol_Value()
+
+```
+    procedure MDBP_Value::Provides_Muldis_Database_Protocol_Value()
+```
+
+The procedure `MDBP_Value::Provides_Muldis_Database_Protocol_Value`
+exists to identify that some given class provides the `MDBP_Value` API.
+Any code that wants to know if some given object is usable as a
+`MDBP_Value` object can start by using the host language's reflection
+capabilities to test that the object's class declares this procedure.
+Actually invoking this procedure should be a no-op.
+
 
 *TODO.*
 
@@ -257,7 +390,7 @@ Darren Duncan - darren@DarrenDuncan.net
 This file is part of the formal specification named
 **Muldis Database Protocol** (**MDBP**).
 
-MDBP is Copyright © 2002-2017, Muldis Data Systems, Inc.
+MDBP is Copyright © 2002-2018, Muldis Data Systems, Inc.
 
 [http://www.muldis.com/](http://www.muldis.com/)
 

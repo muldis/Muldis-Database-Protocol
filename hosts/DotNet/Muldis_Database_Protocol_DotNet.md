@@ -27,14 +27,14 @@ specializes the more abstract **Muldis Database Protocol** specification
 for Microsoft's .NET platform.  It is essentially the same but uses
 standard .NET/C\# features and idioms and syntax instead of pseudocode.
 
-Since the idiomatic way for two participants to communicate with MDPT
+Since the idiomatic way for two participants to communicate with MDBP
 involves them being at arms length and having zero shared depencency code
 and not even knowing each others' names at compile time, the actual
 mechanics of communication generally requires runtime binding using
 reflection and/or introspection.  Zero shared dependency code means not
 having a common "interface" library to bind to at compile time either.
 
-To help make using MDPT easier, the two bundled .NET/C\# library files
+To help make using MDBP easier, the two bundled .NET/C\# library files
 [MuldisDatabaseProtocolServer.cs](MuldisDatabaseProtocolServer.cs) and
 [MuldisDatabaseProtocolClient.cs](MuldisDatabaseProtocolClient.cs) are
 templates that may be copied into a MDBP implementing library or a user
@@ -62,7 +62,7 @@ Darren Duncan - darren@DarrenDuncan.net
 This file is part of the formal specification named
 **Muldis Database Protocol** (**MDBP**).
 
-MDBP is Copyright © 2002-2017, Muldis Data Systems, Inc.
+MDBP is Copyright © 2002-2018, Muldis Data Systems, Inc.
 
 See the LICENSE AND COPYRIGHT of
 [spec/Muldis_Database_Protocol.md](../../spec/Muldis_Database_Protocol.md)

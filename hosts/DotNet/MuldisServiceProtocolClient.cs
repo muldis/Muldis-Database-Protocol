@@ -5,80 +5,80 @@ using System.Numerics;
 
 [assembly: CLSCompliant(true)]
 
-namespace Muldis.Example.DatabaseProtocolClient
+namespace Muldis.Example.ServiceProtocolClient
 {
-    public class MdbpFactory
+    public class MuseFactory
     {
-        public MdbpProvider WantVmApi(String, className, Object requestedVersion)
+        public MuseProvider WantVmApi(String, className, Object requestedVersion)
         {
             throw new NotImplementedException();
         }
     }
 
-    public class MdbpProvider
+    public class MuseProvider
     {
-        public MdbpMachine WantVmModel(Object requestedVersion)
+        public MuseMachine WantVmModel(Object requestedVersion)
         {
             throw new NotImplementedException();
         }
     }
 
-    public class MdbpMachine
+    public class MuseMachine
     {
-        public MdbpValue Evaluates(MdbpValue function, MdbpValue args = null)
+        public MuseValue Evaluates(MuseValue function, MuseValue args = null)
         {
             throw new NotImplementedException();
         }
 
-        public void Performs(MdbpValue procedure, MdbpValue args = null)
+        public void Performs(MuseValue procedure, MuseValue args = null)
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue Any(Object value)
+        public MuseValue Any(Object value)
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue NewVariable(MdbpValue initialCurrentValue)
+        public MuseValue NewVariable(MuseValue initialCurrentValue)
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue NewProcess()
+        public MuseValue NewProcess()
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue NewStream()
+        public MuseValue NewStream()
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue NewExternal(Object value)
+        public MuseValue NewExternal(Object value)
         {
             throw new NotImplementedException();
         }
 
-        public MdbpValue Current(MdbpValue variable)
+        public MuseValue Current(MuseValue variable)
         {
             throw new NotImplementedException();
         }
 
-        public void Assign(MdbpValue variable, MdbpValue value)
+        public void Assign(MuseValue variable, MuseValue value)
         {
             throw new NotImplementedException();
         }
 
-        public Object ExportExternalObject(MdbpValue external)
+        public Object ExportExternalObject(MuseValue external)
         {
             throw new NotImplementedException();
         }
     }
 
-    public class MdbpValue
+    public class MuseValue
     {
-        public MdbpMachine Machine()
+        public MuseMachine Machine()
         {
             throw new NotImplementedException();
         }

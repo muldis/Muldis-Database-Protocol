@@ -1,12 +1,12 @@
 # NAME
 
-Muldis Database Protocol (MDBP) -
-Abstract library API for database engines
+Muldis Service Protocol (MUSE) -
+Abstract library API for noncoupled services
 
 # VERSION
 
 The fully-qualified name of this document is
-`Muldis_Database_Protocol http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol http://muldis.com 0.300.0`.
 
 # SYNOPSIS
 
@@ -15,55 +15,57 @@ The fully-qualified name of this document is
 # DESCRIPTION
 
 This document is the human readable authoritative formal specification named
-**Muldis Database Protocol** (**MDBP**).
+**Muldis Service Protocol** (**MUSE**).
 The fully-qualified name of this document and specification is
-`Muldis_Database_Protocol http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol http://muldis.com 0.300.0`.
 This is the official/original version by the authority Muldis Data Systems
 (`http://muldis.com`), version number `0.300.0`.
 
-**Muldis Database Protocol** specifies an abstract library API for database
+**Muldis Service Protocol** specifies an abstract library API for
+noncoupled services, particularly database
 engines.  It is completely language independent but uses conventions that
 are familiar to programmers of many other languages.  It often takes the
 form of API documentation for a pseudocode virtual library named **FooDB**.
 
 An actual concrete library in some programming language that implements and
-is fully conformant to the MDBP specification is one that provides an API
+is fully conformant to the MUSE specification is one that provides an API
 that is a (possibly non-proper) superset of the API of the virtual library
 defined here.  And so, any applications or other libraries depending on the
-MDBP should be fully portable between all such conforming libraries of
+MUSE should be fully portable between all such conforming libraries of
 their own programming language or platform, at least with respect to what
 the API spec defines; furthermore, dependents should be able to
 programmatically discover to what degree the entire feature set and API of
 the implementing library is able to satisfy its needs and gracefully handle
 when they aren't met.
 
-**Muldis Database Protocol** is expressly designed so that multiple
-implementing DBMS engines etc can be drop-in compatible for each other
+**Muldis Service Protocol** is expressly designed so that multiple
+implementing service providers or
+DBMS engines etc can be drop-in compatible for each other
 while at the same time having no library dependencies in common.  This is
 in stark contrast to typical cross-DBMS access solutions which require a
 common shared implementing codebase, extensible with a plug-in
 architecture, regardless of what backend is in use.  Shared-nothing is a
-primary MDBP feature, at least in principle; implementations can choose to
-have shared code, but MDBP makes no requirements that they do so.
+primary MUSE feature, at least in principle; implementations can choose to
+have shared code, but MUSE makes no requirements that they do so.
 
-This document also uses the terms *MDBP server* and *MDBP client* to refer
+This document also uses the terms *MUSE server* and *MUSE client* to refer
 to, respectively, a concrete library that supports being invoked with the
-MDBP API, and a concrete application (or library) that supports invoking
-something else with the MDBP API.
+MUSE API, and a concrete application (or library) that supports invoking
+something else with the MUSE API.
 
-**Muldis Database Protocol** is bundled with a set of reference API
+**Muldis Service Protocol** is bundled with a set of reference API
 specifications such that each of the latter is specific to an externally
 defined programming language and demonstrates how to apply the abstract
-MDBP to the particular paradigms/features/idioms of that language.  Where
+MUSE to the particular paradigms/features/idioms of that language.  Where
 the language supports the concept, which is common, the reference API is an
 actual concrete interface-defining source code file which can be included
-in or be a concrete dependency for a MDBP implementation in that language.
+in or be a concrete dependency for a MUSE implementation in that language.
 
 See the language-specific subdirectories of [hosts](../hosts) for those.
 
 # DEPENDENCIES
 
-**Muldis Database Protocol** has formal dependencies on, and is defined
+**Muldis Service Protocol** has formal dependencies on, and is defined
 partly in terms of, the externally defined formal specifications named
 **Muldis Content Predicate** (**MCP**) and
 **Muldis Object Notation** (**MUON**).
@@ -73,7 +75,7 @@ https://github.com/muldis/Muldis_Content_Predicate)
 and [https://github.com/muldis/Muldis_Object_Notation](
 https://github.com/muldis/Muldis_Object_Notation) for those.
 
-The MDBP specification liberally re-uses concepts and definitions from
+The MUSE specification liberally re-uses concepts and definitions from
 those externals, so they should be read and understood as necessary in order
 to best understand the current document.
 
@@ -96,14 +98,14 @@ that users invoke them with structures (either native or serialized) that
 describe a desired action to take, and receive back structures describing
 the results.
 
-A *MDBP client* would typically use the *bridge* design pattern for the
-portion of its code that actually speaks the MDBP, especially when the
+A *MUSE client* would typically use the *bridge* design pattern for the
+portion of its code that actually speaks the MUSE, especially when the
 implementing language features compile-time type checking and binding, so
 that the majority of the client code can be written in terms of specific
 and known type or class names or equivalents, and it can avoid the added
 complexities of dealing with runtime reflection itself.
 
-**Muldis Database Protocol** is generally agnostic to command languages and
+**Muldis Service Protocol** is generally agnostic to command languages and
 data models and is designed to be usable with many different ones.
 
 This document uses *snake case*, for example `Foo_Bar`, as its generic
@@ -112,154 +114,154 @@ not need to follow this, and indeed the bundled language-specific reference
 API specifications will instead follow the standard naming conventions of
 those languages.
 
-This document gives the `MDBP_` prefix for type/class names that are
+This document gives the `MUSE_` prefix for type/class names that are
 defined by the API, and gives the `SYS_` prefix for type/class names that
 are defined by the host/implementing programming language, so that they are
 not confused; actual implementations should use non-conflicting names also.
 
-## MDBP_Entrance
+## MUSE_Entrance
 
-A concrete library in some programming language that implements MDBP will
+A concrete library in some programming language that implements MUSE will
 have exactly one entrance class, whose name the user needs to know, which
 is the initial entrance class to bootstrap the API.  That entrance class is
-represented in this document by the fake class name `MDBP_Entrance`.  An
-application using a MDBP-implementing library might either hard-code this
+represented in this document by the fake class name `MUSE_Entrance`.  An
+application using a MUSE-implementing library might either hard-code this
 class name if it is only using a specific one, or it might load that name
 from a configuration file if it lets users specify the library to use.
 
-## MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance()
+## MUSE_Entrance::Provides_Muldis_Service_Protocol_Entrance()
 
 ```
-    procedure MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance()
+    procedure MUSE_Entrance::Provides_Muldis_Service_Protocol_Entrance()
 ```
 
-The procedure `MDBP_Entrance::Provides_Muldis_Database_Protocol_Entrance`
+The procedure `MUSE_Entrance::Provides_Muldis_Service_Protocol_Entrance`
 exists entirely to serve as a "magic number" that identifies the library as
-one that implements the **Muldis Database Protocol**, or specifically that
-some given class provides the `MDBP_Entrance` API.  An application which
-takes instruction from the user or a config file on which MDBP-implementing
+one that implements the **Muldis Service Protocol**, or specifically that
+some given class provides the `MUSE_Entrance` API.  An application which
+takes instruction from the user or a config file on which MUSE-implementing
 library to use can do appropriate sanity checks elegantly with the host
 language's reflection capabilities, checking for the existence of the
 requested entrance class and that said class provides this niladic
 procedure, and only proceeding further to try and use the entrance if it
 does.  Actually invoking this procedure should be a no-op.
 
-## MDBP_Entrance::New_MDBP_Factory(SYS_Object requested_MDBP_version)
+## MUSE_Entrance::New_MUSE_Factory(SYS_Object requested_MUSE_version)
 
 ```
-    function MDBP_Factory MDBP_Entrance::New_MDBP_Factory(
-        SYS_Object requested_MDBP_version)
+    function MUSE_Factory MUSE_Entrance::New_MUSE_Factory(
+        SYS_Object requested_MUSE_version)
 ```
 
-The function `MDBP_Entrance::New_MDBP_Factory` will attempt to result in a
-new `MDBP_Factory` object that implements the specific version/set of the
-MDBP API named by its `requested_MDBP_version` argument; this function will
+The function `MUSE_Entrance::New_MUSE_Factory` will attempt to result in a
+new `MUSE_Factory` object that implements the specific version/set of the
+MUSE API named by its `requested_MUSE_version` argument; this function will
 instead result in failure if it can't provide such an object.
 
-## MDBP_Factory
+## MUSE_Factory
 
-A concrete library in some programming language that implements MDBP will
+A concrete library in some programming language that implements MUSE will
 have at least one class, whose name the user should not need to know, each
-of whose objects provides a specific version/set of the MDBP API.  Each
+of whose objects provides a specific version/set of the MUSE API.  Each
 such class is represented in this document by the fake class name
-`MDBP_Factory`.  The primary reason that the `MDBP_Factory` exists,
-rather than `MDBP_Entrance` handling its functionality, is so that the
+`MUSE_Factory`.  The primary reason that the `MUSE_Factory` exists,
+rather than `MUSE_Entrance` handling its functionality, is so that the
 latter can be absolutely as small as possible, so there can be the greatest
-potential variance between versions of the MDBP API.  A *MDBP client* would
+potential variance between versions of the MUSE API.  A *MUSE client* would
 typically utilize a separate *bridge* class (either its own or that of
-another library) and avoid hard-coding any `MDBP_Factory` class name.
+another library) and avoid hard-coding any `MUSE_Factory` class name.
 
-## MDBP_Factory::Provides_Muldis_Database_Protocol_Factory()
+## MUSE_Factory::Provides_Muldis_Service_Protocol_Factory()
 
 ```
-    procedure MDBP_Factory::Provides_Muldis_Database_Protocol_Factory()
+    procedure MUSE_Factory::Provides_Muldis_Service_Protocol_Factory()
 ```
 
-The procedure `MDBP_Factory::Provides_Muldis_Database_Protocol_Factory`
-exists to identify that some given class provides the `MDBP_Factory` API.
+The procedure `MUSE_Factory::Provides_Muldis_Service_Protocol_Factory`
+exists to identify that some given class provides the `MUSE_Factory` API.
 Any code that wants to know if some given object is usable as a
-`MDBP_Factory` object can start by using the host language's reflection
+`MUSE_Factory` object can start by using the host language's reflection
 capabilities to test that the object's class declares this procedure.
 Actually invoking this procedure should be a no-op.
 
-## MDBP_Factory::New_MDBP_Machine(MDBP_Factory factory, SYS_Object requested_model_version)
+## MUSE_Factory::New_MUSE_Machine(MUSE_Factory factory, SYS_Object requested_model_version)
 
 ```
-    function MDBP_Machine MDBP_Factory::New_MDBP_Machine(
-        MDBP_Factory factory
+    function MUSE_Machine MUSE_Factory::New_MUSE_Machine(
+        MUSE_Factory factory
         SYS_Object requested_model_version)
 ```
 
-The function `MDBP_Factory::New_MDBP_Machine` will attempt to result in a
-new `MDBP_Machine` object that implements the specific version/set of the
-MDBP API represented by its `factory` argument, such that the DBMS /
-virtual machine represented by the `MDBP_Machine` fundamentally behaves
+The function `MUSE_Factory::New_MUSE_Machine` will attempt to result in a
+new `MUSE_Machine` object that implements the specific version/set of the
+MUSE API represented by its `factory` argument, such that the DBMS /
+virtual machine represented by the `MUSE_Machine` fundamentally behaves
 according to the data model version/set named by its
 `requested_model_version` argument; this function will instead result in
 failure if it can't provide such an object.
 
-## MDBP_Machine
+## MUSE_Machine
 
-A concrete library in some programming language that implements MDBP will
+A concrete library in some programming language that implements MUSE will
 have at least one class, whose name the user should not need to know, each
 of whose objects represents a single active instance of a database
 management system (DBMS) or virtual machine environment, which is the
 widest scope stateful context in which any other database activities
 happen.  Each such class is represented in this document by the fake class
-name `MDBP_Machine`.  A *MDBP client* would typically utilize a separate
+name `MUSE_Machine`.  A *MUSE client* would typically utilize a separate
 *bridge* class (either its own or that of another library) and avoid
-hard-coding any `MDBP_Machine` class name.
+hard-coding any `MUSE_Machine` class name.
 
 The *any other database activities* refers to the creation or destruction
 or association or disassociation with one or more databases, the authoring
 or compilation or execution of routines, either to fetch data or manipulate
 data, the creation or destruction of database constraints, the management
-of transactions, and so on.  A `MDBP_Machine` object also represents the
+of transactions, and so on.  A `MUSE_Machine` object also represents the
 global memory pool of an active DBMS instance, within which all processes
 and values and variables live.
 
-A typical application would use exactly one `MDBP_Machine` object at a time
+A typical application would use exactly one `MUSE_Machine` object at a time
 and it would tend to be as long-lived as the application process itself.
-Some libraries implementing MDBP may treat a `MDBP_Machine` as a singleton,
+Some libraries implementing MUSE may treat a `MUSE_Machine` as a singleton,
 so only one such object may exist at a time through which it manages
 resources; other implementers may allow several at once, in which case they
 should be completely independent.
 
-## MDBP_Machine::Provides_Muldis_Database_Protocol_Machine()
+## MUSE_Machine::Provides_Muldis_Service_Protocol_Machine()
 
 ```
-    procedure MDBP_Machine::Provides_Muldis_Database_Protocol_Machine()
+    procedure MUSE_Machine::Provides_Muldis_Service_Protocol_Machine()
 ```
 
-The procedure `MDBP_Machine::Provides_Muldis_Database_Protocol_Machine`
-exists to identify that some given class provides the `MDBP_Machine` API.
+The procedure `MUSE_Machine::Provides_Muldis_Service_Protocol_Machine`
+exists to identify that some given class provides the `MUSE_Machine` API.
 Any code that wants to know if some given object is usable as a
-`MDBP_Machine` object can start by using the host language's reflection
+`MUSE_Machine` object can start by using the host language's reflection
 capabilities to test that the object's class declares this procedure.
 Actually invoking this procedure should be a no-op.
 
-## MDBP_Value
+## MUSE_Value
 
-A `MDBP_Value` object represents a single in-DBMS value of the `Any` type,
+A `MUSE_Value` object represents a single in-DBMS value of the `Any` type,
 meaning both regular constant values as well as mutable `Handle` values.
-A `MDBP_Value` object is associated with a specific `Machine` object, the one
-whose `new_value` method created it.  `MDBP_Value` objects are the normal way
+A `MUSE_Value` object is associated with a specific `Machine` object, the one
+whose `new_value` method created it.  `MUSE_Value` objects are the normal way
 to directly share or move data between the DBMS and main .NET environments.
-The way to represent an in-DBMS variable with a `MDBP_Value` object is to use
+The way to represent an in-DBMS variable with a `MUSE_Value` object is to use
 a *value* whose *data type* is `Variable`.  The way to represent an
 in-DBMS process with a `Value` object is to use a *value* whose *data
 type* is `Process`.
 
-## MDBP_Value::Provides_Muldis_Database_Protocol_Value()
+## MUSE_Value::Provides_Muldis_Service_Protocol_Value()
 
 ```
-    procedure MDBP_Value::Provides_Muldis_Database_Protocol_Value()
+    procedure MUSE_Value::Provides_Muldis_Service_Protocol_Value()
 ```
 
-The procedure `MDBP_Value::Provides_Muldis_Database_Protocol_Value`
-exists to identify that some given class provides the `MDBP_Value` API.
+The procedure `MUSE_Value::Provides_Muldis_Service_Protocol_Value`
+exists to identify that some given class provides the `MUSE_Value` API.
 Any code that wants to know if some given object is usable as a
-`MDBP_Value` object can start by using the host language's reflection
+`MUSE_Value` object can start by using the host language's reflection
 capabilities to test that the object's class declares this procedure.
 Actually invoking this procedure should be a no-op.
 
@@ -277,7 +279,7 @@ document, as either declared in said document or as referenced by other
 documents or by source code, has 3 main parts: *document base name*,
 *authority*, and *version number*.
 
-The *document base name* is the character string `Muldis_Database_Protocol`.
+The *document base name* is the character string `Muldis_Service_Protocol`.
 
 An *authority* is some nonempty character string whose value uniquely
 identifies the authority or author of the versioned entity.  Generally
@@ -388,28 +390,28 @@ Darren Duncan - darren@DarrenDuncan.net
 # LICENSE AND COPYRIGHT
 
 This file is part of the formal specification named
-**Muldis Database Protocol** (**MDBP**).
+**Muldis Service Protocol** (**MUSE**).
 
-MDBP is Copyright © 2002-2019, Muldis Data Systems, Inc.
+MUSE is Copyright © 2002-2019, Muldis Data Systems, Inc.
 
 [http://www.muldis.com/](http://www.muldis.com/)
 
-MDBP is free documentation for software;
+MUSE is free documentation for software;
 you can redistribute it and/or modify it under the terms of the Artistic
 License version 2 (AL2) as published by the Perl Foundation
 ([http://www.perlfoundation.org/](http://www.perlfoundation.org/)).
 You should have received copies of the AL2 as part of the
-MDBP distribution, in the file
+MUSE distribution, in the file
 [LICENSE/artistic-2_0.txt](../LICENSE/artistic-2_0.txt); if not, see
 [https://www.perlfoundation.org/artistic-license-20.html](
 https://www.perlfoundation.org/artistic-license-20.html).
 
-Any versions of MDBP that you modify and distribute must carry prominent
+Any versions of MUSE that you modify and distribute must carry prominent
 notices stating that you changed the files and the date of any changes, in
 addition to preserving this original copyright notice and other credits.
 
-While it is by no means required, the copyright holder of MDBP would
-appreciate being informed any time you create a modified version of MDBP
+While it is by no means required, the copyright holder of MUSE would
+appreciate being informed any time you create a modified version of MUSE
 that you are willing to distribute, because that is a practical way of
 suggesting improvements to the standard version.
 

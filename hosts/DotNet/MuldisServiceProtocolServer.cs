@@ -5,11 +5,11 @@ using System.Numerics;
 
 [assembly: CLSCompliant(true)]
 
-namespace Muldis.Example.DatabaseProtocolServer
+namespace Muldis.Example.ServiceProtocolServer
 {
     public interface IFactory
     {
-        ProvidesMuldisDatabaseProtocol();
+        ProvidesMuldisServiceProtocol();
 
         IProvider WantVmApi(Object requestedVersion);
     }
@@ -35,11 +35,11 @@ namespace Muldis.Example.DatabaseProtocolServer
 
         IValue NewExternal(Object value);
 
-        IValue Current(MdbpValue variable);
+        IValue Current(MuseValue variable);
 
-        void Assign(MdbpValue variable, IValue value);
+        void Assign(MuseValue variable, IValue value);
 
-        Object ExportExternalObject(MdbpValue external);
+        Object ExportExternalObject(MuseValue external);
     }
 
     public interface IValue

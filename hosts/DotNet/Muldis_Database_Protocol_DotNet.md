@@ -6,7 +6,7 @@ Reference API for Muldis Database Protocol Over .NET
 # VERSION
 
 The fully-qualified name of this document is
-`Muldis_Database_Protocol_DotNet http://muldis.com 0.201.0`.
+`Muldis_Database_Protocol_DotNet http://muldis.com 0.300.0`.
 
 # SYNOPSIS
 
@@ -16,7 +16,7 @@ The fully-qualified name of this document is
 
 This is a bundled supporting document for the feature specification named
 **Muldis Database Protocol** (**MDBP**) whose fully-qualified name is
-`Muldis_Database_Protocol http://muldis.com 0.201.0`.
+`Muldis_Database_Protocol http://muldis.com 0.300.0`.
 
 See the file
 [spec/Muldis_Database_Protocol.md](../../spec/Muldis_Database_Protocol.md)
@@ -62,7 +62,7 @@ Darren Duncan - darren@DarrenDuncan.net
 This file is part of the formal specification named
 **Muldis Database Protocol** (**MDBP**).
 
-MDBP is Copyright © 2002-2018, Muldis Data Systems, Inc.
+MDBP is Copyright © 2002-2019, Muldis Data Systems, Inc.
 
 See the LICENSE AND COPYRIGHT of
 [spec/Muldis_Database_Protocol.md](../../spec/Muldis_Database_Protocol.md)

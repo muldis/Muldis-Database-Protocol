@@ -6,7 +6,7 @@ Abstract library API for database engines
 # VERSION
 
 The fully-qualified name of this document is
-`Muldis_Database_Protocol http://muldis.com 0.201.0`.
+`Muldis_Database_Protocol http://muldis.com 0.300.0`.
 
 # SYNOPSIS
 
@@ -17,9 +17,9 @@ The fully-qualified name of this document is
 This document is the human readable authoritative formal specification named
 **Muldis Database Protocol** (**MDBP**).
 The fully-qualified name of this document and specification is
-`Muldis_Database_Protocol http://muldis.com 0.201.0`.
+`Muldis_Database_Protocol http://muldis.com 0.300.0`.
 This is the official/original version by the authority Muldis Data Systems
-(`http://muldis.com`), version number `0.201.0`.
+(`http://muldis.com`), version number `0.300.0`.
 
 **Muldis Database Protocol** specifies an abstract library API for database
 engines.  It is completely language independent but uses conventions that
@@ -390,7 +390,7 @@ Darren Duncan - darren@DarrenDuncan.net
 This file is part of the formal specification named
 **Muldis Database Protocol** (**MDBP**).
 
-MDBP is Copyright © 2002-2018, Muldis Data Systems, Inc.
+MDBP is Copyright © 2002-2019, Muldis Data Systems, Inc.
 
 [http://www.muldis.com/](http://www.muldis.com/)
 
@@ -401,16 +401,16 @@ License version 2 (AL2) as published by the Perl Foundation
 You should have received copies of the AL2 as part of the
 MDBP distribution, in the file
 [LICENSE/artistic-2_0.txt](../LICENSE/artistic-2_0.txt); if not, see
-[http://www.perlfoundation.org/attachment/legal/artistic-2_0.txt](
-http://www.perlfoundation.org/attachment/legal/artistic-2_0.txt).
+[https://www.perlfoundation.org/artistic-license-20.html](
+https://www.perlfoundation.org/artistic-license-20.html).
 
 Any versions of MDBP that you modify and distribute must carry prominent
 notices stating that you changed the files and the date of any changes, in
 addition to preserving this original copyright notice and other credits.
 
 While it is by no means required, the copyright holder of MDBP would
-appreciate being informed any time you create a modified version of Muldis
-D that you are willing to distribute, because that is a practical way of
+appreciate being informed any time you create a modified version of MDBP
+that you are willing to distribute, because that is a practical way of
 suggesting improvements to the standard version.
 
 # TRADEMARK POLICY

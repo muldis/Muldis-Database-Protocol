@@ -1,12 +1,11 @@
 # NAME
 
-Muldis Service Protocol: .NET -
-Reference API for Muldis Service Protocol Over .NET
+Muldis Service Protocol: .NET - Reference API for Muldis Service Protocol Over .NET
 
 # VERSION
 
 The fully-qualified name of this document is
-`Muldis_Service_Protocol_DotNet http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol_DotNet https://muldis.com 0.300.0`.
 
 # SYNOPSIS
 
@@ -16,7 +15,7 @@ The fully-qualified name of this document is
 
 This is a bundled supporting document for the feature specification named
 **Muldis Service Protocol** (**MUSE**) whose fully-qualified name is
-`Muldis_Service_Protocol http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol https://muldis.com 0.300.0`.
 
 See the file
 [spec/Muldis_Service_Protocol.md](../../spec/Muldis_Service_Protocol.md)

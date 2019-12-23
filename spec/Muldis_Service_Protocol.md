@@ -1,12 +1,11 @@
 # NAME
 
-Muldis Service Protocol (MUSE) -
-Abstract library API for noncoupled services
+Muldis Service Protocol (MUSE) - Abstract library API for noncoupled services
 
 # VERSION
 
 The fully-qualified name of this document is
-`Muldis_Service_Protocol http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol https://muldis.com 0.300.0`.
 
 # SYNOPSIS
 
@@ -17,9 +16,9 @@ The fully-qualified name of this document is
 This document is the human readable authoritative formal specification named
 **Muldis Service Protocol** (**MUSE**).
 The fully-qualified name of this document and specification is
-`Muldis_Service_Protocol http://muldis.com 0.300.0`.
+`Muldis_Service_Protocol https://muldis.com 0.300.0`.
 This is the official/original version by the authority Muldis Data Systems
-(`http://muldis.com`), version number `0.300.0`.
+(`https://muldis.com`), version number `0.300.0`.
 
 **Muldis Service Protocol** specifies an abstract library API for
 noncoupled services, particularly database
@@ -290,16 +289,16 @@ Note that an authority/author doesn't have to be an individual person; it
 could be some corporate entity instead.
 
 Examples of recommended *authority* naming schemes include a qualified
-base HTTP url belonging to the authority (example `http://muldis.com`) or
+base HTTP url belonging to the authority (example `https://muldis.com`) or
 a qualified user identifier at some well-known asset repository
-(example `http://github.com/muldis` or `cpan:DUNCAND`).
+(example `https://github.com/muldis` or `cpan:DUNCAND`).
 
 For all official/original works by Muldis Data Systems, Inc., the
-*authority* has always been `http://muldis.com` and is expected to remain
+*authority* has always been `https://muldis.com` and is expected to remain
 so during the foreseeable future.
 
 If someone else wants to *embrace and extend* this specification document,
-then they must use their own (not `http://muldis.com`) base authority
+then they must use their own (not `https://muldis.com`) base authority
 identifier, to prevent ambiguity, assist quality control, and give due credit.
 
 In this context, *embrace and extend* means for someone to do any of the
@@ -339,7 +338,7 @@ standard **Semantic Versioning 2.0.0** as published at
 [https://semver.org](https://semver.org), but it is re-explained below for
 clarity or in case the external document disappears.
 
-A *version number* for authority `http://muldis.com` is an ordered sequence
+A *version number* for authority `https://muldis.com` is an ordered sequence
 of integers, the order of these being from most significant to least, with
 3 positions [MAJOR,MINOR,PATCH] and further ones possible.  The version
 sequence may have have as few as 1 most significant position.  Any omitted
@@ -375,8 +374,8 @@ markers of such can either be omitted or be based on other standards.
 However, a major version of zero should be considered either pre-production
 or that the authority expects frequent upcoming backwards-incompatible changes.*
 
-See also [http://design.perl6.org/S11.html#Versioning](
-http://design.perl6.org/S11.html#Versioning) which was the primary
+See also [http://design.raku.org/S11.html#Versioning](
+http://design.raku.org/S11.html#Versioning) which was the primary
 influence for the versioning scheme described above.
 
 # SEE ALSO
@@ -394,13 +393,13 @@ This file is part of the formal specification named
 
 MUSE is Copyright © 2002-2019, Muldis Data Systems, Inc.
 
-[http://www.muldis.com/](http://www.muldis.com/)
+[https://muldis.com](https://muldis.com)
 
 MUSE is free documentation for software;
 you can redistribute it and/or modify it under the terms of the Artistic
 License version 2 (AL2) as published by the Perl Foundation
-([http://www.perlfoundation.org/](http://www.perlfoundation.org/)).
-You should have received copies of the AL2 as part of the
+([https://www.perlfoundation.org](https://www.perlfoundation.org)).
+You should have received a copy of the AL2 as part of the
 MUSE distribution, in the file
 [LICENSE/artistic-2_0.txt](../LICENSE/artistic-2_0.txt); if not, see
 [https://www.perlfoundation.org/artistic-license-20.html](
@@ -418,10 +417,10 @@ suggesting improvements to the standard version.
 # TRADEMARK POLICY
 
 **MULDIS** and **MULDIS MULTIVERSE OF DISCOURSE** are trademarks of Muldis
-Data Systems, Inc. ([http://www.muldis.com/](http://www.muldis.com/)).
+Data Systems, Inc. ([https://muldis.com](https://muldis.com)).
 The trademarks apply to computer database software and related services.
-See [http://www.muldis.com/trademark_policy.html](
-http://www.muldis.com/trademark_policy.html) for the full written details
+See [https://muldis.com/trademark_policy.html](
+https://muldis.com/trademark_policy.html) for the full written details
 of Muldis Data Systems' trademark policy.
 
 # ACKNOWLEDGEMENTS
